@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # expense_app_final
 
 A new Flutter project.
@@ -14,3 +15,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# ExpenseTracker
+The Expense Tracker App is your pocket-friendly money manager built with Flutter, designed to make tracking daily expenses fast, simple, and effortless. With its clean UI and smooth performance on both Android and iOS, it helps you add and view expenses in seconds while keeping your spending organized and under control
+>>>>>>> 6f5106a6308557997939e6f0b4a70a2df5aaa98d
