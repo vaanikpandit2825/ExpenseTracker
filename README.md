@@ -16,11 +16,17 @@ A sleek Flutter app designed to simplify monthly money management. Set your budg
 
 🛠️ Tech Stack
 
-Flutter – Frontend framework
-
-Dart – Programming language
-
-Hive – Local database for expenses
+| Component        | Details                                                                 |
+|------------------|-------------------------------------------------------------------------|
+| Language         | Dart                                                                    |
+| UI Framework     | Flutter                                                                 |
+| Architecture     | MVVM (with Provider/State Management as applicable)                     |
+| Database         | Hive (NoSQL, lightweight key-value storage)                             |
+| Persistent Data  | SharedPreferences (for budget and settings storage)                     |
+| Networking       | HTTP package (for API calls and data fetching, where applicable)        |
+| IDE              | Android Studio / VS Code                                                |
+| Version Control  | Git & GitHub                                                            |
+| Deployment Target| Android 13+, iOS 17+ (cross-platform support)                           |
 
 SharedPreferences – Budget storage
 
