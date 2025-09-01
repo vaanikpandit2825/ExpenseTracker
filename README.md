@@ -1,7 +1,6 @@
 💸 Smart Expense Tracker
 
 A sleek Flutter app designed to simplify monthly money management. Set your budget, add expenses, and track spending in real time with clean visuals and smooth performance.
-
 🚀 Features
 
 📊 Monthly Budgeting – Set a budget and manage it with ease
