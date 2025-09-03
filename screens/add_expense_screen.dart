@@ -16,7 +16,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   final _amount = TextEditingController();
   DateTime _date = DateTime.now();
 
-  Future<void> _pickDate() async {
+  Future<void> _pickDate() async
+  {
     final picked = await showDatePicker(
       context: context,
       initialDate: _date,
@@ -109,5 +110,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     );
   }
 }
+
 
 
