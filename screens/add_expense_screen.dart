@@ -28,7 +28,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     if (picked != null) setState(() => _date = picked);
   }
 
-  void _submit() {
+  void _submit() 
+  {
     if (!_formKey.currentState!.validate()) return;
     final exp = Expense(
       description: _desc.text.trim(),
@@ -112,6 +113,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     );
   }
 }
+
 
 
 
