@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/expense.dart';
 
-class AddExpenseScreen extends StatefulWidget {
+class AddExpenseScreen extends StatefulWidget 
+{
   final Function(Expense) onAdd;
 
   const AddExpenseScreen({super.key, required this.onAdd});
@@ -110,6 +111,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     );
   }
 }
+
 
 
 
