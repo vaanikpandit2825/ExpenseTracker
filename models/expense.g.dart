@@ -27,8 +27,7 @@ class ExpenseAdapter extends TypeAdapter<Expense> {
       ..writeByte(1)
       ..write(obj.amount)
       ..writeByte(2)
-      ..write(obj.date);
-  }
+      ..write(obj.date);}
 
   @override
   int get hashCode => typeId.hashCode;
