@@ -6,7 +6,8 @@ class ExpenseCard extends StatelessWidget {
   const ExpenseCard({super.key, required this.expense});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Card(
       color: Colors.white10,
       margin: const EdgeInsets.symmetric(vertical: 6),
@@ -24,3 +25,4 @@ class ExpenseCard extends StatelessWidget {
     );
   }
 }
+
