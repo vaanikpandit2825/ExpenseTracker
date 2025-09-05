@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/expense.dart';
 
-class ExpenseCard extends StatelessWidget {
+class ExpenseCard extends StatelessWidget
+{
   final Expense expense;
   const ExpenseCard({super.key, required this.expense});
 
@@ -25,4 +26,5 @@ class ExpenseCard extends StatelessWidget {
     );
   }
 }
+
 
