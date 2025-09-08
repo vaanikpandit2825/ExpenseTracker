@@ -6,7 +6,8 @@ class InsightsCard extends StatelessWidget
   final List<Expense> expenses;
   const InsightsCard({super.key, required this.expenses});
 
-  double getTotalThisWeek() {
+  double getTotalThisWeek() 
+  {
     DateTime now = DateTime.now();
     DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
     return expenses
@@ -58,4 +59,5 @@ class InsightsCard extends StatelessWidget
     );
   }
 }
+
 
