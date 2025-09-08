@@ -15,7 +15,8 @@ class InsightsCard extends StatelessWidget
         .fold(0, (sum, e) => sum + e.amount);
   }
 
-  double getTotalLastWeek() {
+  double getTotalLastWeek() 
+  {
     DateTime now = DateTime.now();
     DateTime startOfThisWeek = now.subtract(Duration(days: now.weekday - 1));
     DateTime startOfLastWeek = startOfThisWeek.subtract(const Duration(days: 7));
@@ -59,5 +60,6 @@ class InsightsCard extends StatelessWidget
     );
   }
 }
+
 
 
