@@ -24,8 +24,7 @@ class InsightsCard extends StatelessWidget{
   }
 
   @override
-  Widget build(BuildContext context) 
-  {
+  Widget build(BuildContext context){
     double thisWeek = getTotalThisWeek();
     double lastWeek = getTotalLastWeek();
     double percentChange = lastWeek == 0 ? 0 : ((thisWeek - lastWeek) / lastWeek) * 100;
@@ -58,6 +57,7 @@ class InsightsCard extends StatelessWidget{
     );
   }
 }
+
 
 
 
