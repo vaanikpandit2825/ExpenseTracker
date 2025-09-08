@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/expense.dart';
 
-class InsightsCard extends StatelessWidget
-{
+class InsightsCard extends StatelessWidget{
   final List<Expense> expenses;
   const InsightsCard({super.key, required this.expenses});
 
@@ -61,6 +60,7 @@ class InsightsCard extends StatelessWidget
     );
   }
 }
+
 
 
 
