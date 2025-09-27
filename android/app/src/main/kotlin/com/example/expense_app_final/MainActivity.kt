@@ -1,5 +1,6 @@
-package com.example.expense_app_final
+package com.example.smart_expense_tracker
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity : FlutterActivity()
+class MainActivity: FlutterActivity() {
+}
