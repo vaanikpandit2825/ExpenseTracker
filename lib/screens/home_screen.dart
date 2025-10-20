@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import '../models/expense.dart';
 import 'add_expense_screen.dart';
-import '../widgets/expense_card.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,43 +10,188 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  late Box<Expense> box;
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  final List<Expense> expenses = [];
+
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    box = Hive.box<Expense>('expenses');
+
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _controller.forward();
   }
 
-  void _addExpense(Expense e) async {
-    await box.add(e);
-    setState(() {});
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  double get weeklyTotal {
+    final now = DateTime.now();
+    final weekStart = now.subtract(Duration(days: now.weekday - 1));
+    return expenses
+        .where((e) => e.date.isAfter(weekStart.subtract(const Duration(seconds: 1))))
+        .fold(0.0, (sum, e) => sum + e.amount);
+  }
+
+  double get weeklyPercent {
+    const weeklyBudget = 5000; // example budget
+    return (weeklyTotal / weeklyBudget) * 100;
   }
 
   @override
   Widget build(BuildContext context) {
-    final expenses = box.values.toList().reversed.toList();
     return Scaffold(
-      appBar: AppBar(title: const Text("Smart Expense Tracker")),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: ListView.builder(
-          itemCount: expenses.length,
-          itemBuilder: (_, i) => ExpenseCard(expense: expenses[i]),
+      floatingActionButton: ScaleTransition(
+        scale: _animation,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddExpenseScreen(
+                  onAdd: (expense) {
+                    setState(() {
+                      expenses.add(expense);
+                    });
+                  },
+                ),
+              ),
+            );
+          },
+          backgroundColor: Colors.purpleAccent,
+          child: const Icon(Icons.add, color: Colors.black),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => AddExpenseScreen(onAdd: _addExpense),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.black, Colors.deepPurple],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FadeTransition(
+                  opacity: _animation,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    color: Colors.deepPurpleAccent,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Icon(Icons.show_chart,
+                              size: 40, color: Colors.yellowAccent),
+                          const SizedBox(width: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "This Week",
+                                style: TextStyle(
+                                    color: Colors.white70, fontSize: 16),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                "₹${weeklyTotal.toStringAsFixed(2)} spent",
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "${weeklyPercent.toStringAsFixed(1)}% of budget",
+                                style: const TextStyle(
+                                    color: Colors.white70, fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Expenses",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: expenses.isEmpty
+                      ? const Center(
+                          child: Text(
+                            "No expenses yet!",
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: expenses.length,
+                          itemBuilder: (context, index) {
+                            final expense = expenses[index];
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                              margin: const EdgeInsets.symmetric(vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[900],
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.purpleAccent,
+                                      blurRadius: 5,
+                                      spreadRadius: 1)
+                                ],
+                              ),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.purpleAccent,
+                                  child: Icon(Icons.money,
+                                      color: Colors.black, size: 20),
+                                ),
+                                title: Text(
+                                  expense.description,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                                subtitle: Text(
+                                  DateFormat('dd MMM yyyy').format(expense.date),
+                                  style: const TextStyle(
+                                      color: Colors.white70, fontSize: 14),
+                                ),
+                                trailing: Text(
+                                  "₹${expense.amount.toStringAsFixed(2)}",
+                                  style: const TextStyle(
+                                      color: Colors.yellowAccent,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ],
             ),
-          );
-        },
-        backgroundColor: const Color(0xFF00FF88),
-        child: const Icon(Icons.add, color: Colors.black),
+          ),
+        ),
       ),
     );
   }

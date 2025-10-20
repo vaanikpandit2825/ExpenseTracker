@@ -10,9 +10,6 @@ class ExpenseCard extends StatelessWidget {
     return Card(
       color: Colors.white10,
       margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12), // smooth edges
-      ),
       child: ListTile(
         leading: const Icon(Icons.money, color: Color(0xFF00FF88)),
         title: Text(
@@ -20,7 +17,7 @@ class ExpenseCard extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         subtitle: Text(
-          "${expense.note} • ${expense.date.day}/${expense.date.month}/${expense.date.year}",
+          "${expense.description} • ${expense.date.day}/${expense.date.month}/${expense.date.year}",
           style: const TextStyle(color: Colors.white70),
         ),
       ),
