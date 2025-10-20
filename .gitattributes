@@ -1,1 +1,9 @@
-* linguist-vendored
+# Ignore Flutter platform and build files
+android/* linguist-vendored
+ios/* linguist-vendored
+web/* linguist-vendored
+linux/* linguist-vendored
+macos/* linguist-vendored
+windows/* linguist-vendored
+build/* linguist-vendored
+.dart_tool/* linguist-vendored
