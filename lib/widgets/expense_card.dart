@@ -11,14 +11,22 @@ class ExpenseCard extends StatelessWidget {
       color: Colors.white10,
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
-        leading: const Icon(Icons.money, color: Color(0xFF00FF88)),
+        leading: CircleAvatar(
+          backgroundColor: const Color(0xFF9D4EDD),
+          child: Icon(Icons.money, color: Colors.white),
+        ),
         title: Text(
-          "₹${expense.amount.toStringAsFixed(0)}",
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          expense.description,
+          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         subtitle: Text(
-          "${expense.description} • ${expense.date.day}/${expense.date.month}/${expense.date.year}",
+          "${expense.date.day}/${expense.date.month}/${expense.date.year}",
           style: const TextStyle(color: Colors.white70),
+        ),
+        trailing: Text(
+          "₹${expense.amount.toStringAsFixed(2)}",
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 18, color: Colors.yellowAccent),
         ),
       ),
     );

@@ -15,6 +15,15 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
+  String _selectedCategory = "Food";
+
+  final List<String> categories = [
+    "Food",
+    "Travel",
+    "Bills",
+    "Shopping",
+    "Other"
+  ];
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
@@ -22,6 +31,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         amount: double.parse(_amountController.text),
         description: _descController.text,
         date: _selectedDate,
+        category: _selectedCategory,
       );
       widget.onAdd(expense);
       Navigator.pop(context);
@@ -89,6 +99,22 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 },
               ),
               const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                value: _selectedCategory,
+                items: categories
+                    .map((c) => DropdownMenuItem(
+                          value: c,
+                          child: Text(c),
+                        ))
+                    .toList(),
+                onChanged: (val) => setState(() => _selectedCategory = val!),
+                decoration: const InputDecoration(
+                  labelText: "Category",
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.category),
+                ),
+              ),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Text(
@@ -109,7 +135,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   minimumSize: const Size.fromHeight(50),
                 ),
-                child: const Text("Add Expense", style: TextStyle(fontSize: 18, color: Colors.black)),
+                child: const Text("Add Expense",
+                    style: TextStyle(fontSize: 18, color: Colors.black)),
               ),
             ],
           ),
