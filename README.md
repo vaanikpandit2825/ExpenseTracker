@@ -1,4 +1,4 @@
-# 💸 Expense Tracker
+#  Expense Tracker
 
 A modern Flutter-based Expense Tracker app built to make managing finances effortless and intuitive.  
 Track your daily expenses, visualize your spending habits, and stay in control — all in one sleek app.
